@@ -21,13 +21,12 @@
         app += videoID;
 
         if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            window.location = app;
-            window.setTimeout(function() {
-                window.location = mobileFallback;
-            }, 25);
-        } else {
-            window.location = desktopFallback;
-        }
+    window.location.replace(app);
+    window.location.replace(mobileFallback); // Redirect to mobileFallback immediately
+} else {
+    window.location.replace(desktopFallback); // Redirect to desktopFallback immediately
+}
+
     }
     
     function killPopup() {
