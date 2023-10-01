@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            window.onload = function() {
+    var desktopFallback = "https://youtu.be/",  // Base YouTube URL
+        mobileFallback = "https://youtu.be/",  // Base YouTube URL
+        app = "vnd.youtube://";  // Base YouTube app URL
+
+    // Extract the video ID from the URL query parameter
+    var urlParams = new URLSearchParams(window.location.search);
+    var videoID = urlParams.get('v');
+
+    if (videoID) {
+        desktopFallback += videoID;
+        mobileFallback += videoID;
+        app += videoID;
+
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            window.location = app;
+            window.setTimeout(function() {
+                window.location = mobileFallback;
+            }, 25);
+        } else {
+            window.location = desktopFallback;
+        }
+    }
+    
+    function killPopup() {
+        window.removeEventListener('pagehide', killPopup);
+    }
+
+    window.addEventListener('pagehide', killPopup);
+};
+            
+        </script>
+    </body>
+</html>
